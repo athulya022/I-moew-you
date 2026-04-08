@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Comic Sans MS', cursive;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+h1{
+    font-size:45px;
+    color:#fff;
+    text-shadow:2px 2px 5px #ff4d6d;
+}
+
+img{
+    width:220px;
+    border-radius:20px;
+    margin:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+button{
+    padding:15px 35px;
+    font-size:20px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+#yes:hover{
+    transform:scale(1.2);
+}
+
+#no{
+    background:#444;
+    color:white;
+    position:absolute;
+}
+
+.heart{
+    position:absolute;
+    color:red;
+    font-size:20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+#confetti{
+    position:absolute;
+    font-size:40px;
+    display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Will you be my Valentine? 💕</h1>
+
+<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+
+<div>
+<button id="yes" onclick="yesClicked()">Yes 💖</button>
+<button id="no" onmouseover="moveButton()">No 😅</button>
+</div>
+
+<div id="confetti">🎉🎉🎉🎉🎉</div>
+
+<script>
+
+let messages=[
+"No 😢",
+"Are you sure? 🥺",
+"Really sure?? 😭",
+"Think again 😳",
+"Last chance 😩"
+];
+
+let msgIndex=0;
+
+function moveButton(){
+
+let button=document.getElementById("no");
+
+let x=Math.random()*window.innerWidth;
+let y=Math.random()*window.innerHeight;
+
+button.style.left=x+"px";
+button.style.top=y+"px";
+
+button.innerText=messages[msgIndex % messages.length];
+msgIndex++;
+}
+
+function yesClicked(){
+
+document.body.innerHTML=`
+<h1>YAYYYY!!! ❤️🥰</h1>
+<img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+<h2>You just made my day 💖</h2>
+<div style="font-size:50px;">🎉🎉🎉🎉🎉</div>
+`;
+}
+
+function createHeart(){
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*30+10+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000)
+
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
