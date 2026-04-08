@@ -1,78 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>My Valentine 💖</title>
+<title>Valentine Proposal ❤️</title>
 
 <style>
 
 body{
     margin:0;
-    height:100vh;
     overflow:hidden;
     font-family:'Comic Sans MS', cursive;
-    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
+    background:linear-gradient(135deg,#ff9a9e,#fecfef);
     text-align:center;
 }
 
 h1{
-    font-size:45px;
-    color:#fff;
-    text-shadow:2px 2px 5px #ff4d6d;
+    margin-top:80px;
+    font-size:42px;
+    color:white;
 }
 
-img{
-    width:220px;
+.gallery{
+    margin-top:20px;
+}
+
+.gallery img{
+    width:160px;
     border-radius:20px;
-    margin:20px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    margin:10px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+#buttons{
+    margin-top:40px;
 }
 
 button{
     padding:15px 35px;
     font-size:20px;
     border:none;
-    border-radius:50px;
+    border-radius:40px;
     cursor:pointer;
-    margin:10px;
     transition:0.3s;
 }
 
 #yes{
-    background:#ff4d6d;
+    background:#ff3b6f;
     color:white;
 }
 
-#yes:hover{
-    transform:scale(1.2);
-}
-
 #no{
-    background:#444;
+    background:#555;
     color:white;
     position:absolute;
 }
 
 .heart{
     position:absolute;
-    color:red;
-    font-size:20px;
-    animation: float 6s linear infinite;
+    font-size:25px;
+    animation:float 6s linear infinite;
 }
 
 @keyframes float{
-    0%{transform:translateY(100vh);}
-    100%{transform:translateY(-10vh);}
-}
-
-#confetti{
-    position:absolute;
-    font-size:40px;
-    display:none;
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
 }
 
 </style>
@@ -80,72 +76,100 @@ button{
 
 <body>
 
-<h1>Will you be my Valentine? 💕</h1>
+<h1 id="question">Will you be my Valentine? 💖</h1>
 
-<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+<div class="gallery">
 
-<div>
-<button id="yes" onclick="yesClicked()">Yes 💖</button>
-<button id="no" onmouseover="moveButton()">No 😅</button>
+<!-- <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"> -->
+<!-- <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"> -->
+<img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+
 </div>
 
-<div id="confetti">🎉🎉🎉🎉🎉</div>
+<div id="buttons">
+<button id="yes">Yes 😍</button>
+<button id="no">No 🙃</button>
+</div>
 
 <script>
 
-let messages=[
-"No 😢",
+let yesSize = 1
+let noSize = 1
+
+const messages = [
 "Are you sure? 🥺",
-"Really sure?? 😭",
-"Think again 😳",
-"Last chance 😩"
-];
+"Think again 😭",
+"I'll bring chocolates 🍫",
+"I'll bring pizza 🍕",
+"Please say yes 😭",
+"Last chance 😭"
+]
 
-let msgIndex=0;
+let messageIndex = 0
 
-function moveButton(){
+document.getElementById("yes").onclick = function(){
 
-let button=document.getElementById("no");
+document.body.innerHTML =
+"<h1 style='margin-top:150px;font-size:60px;color:white;'>YAYYYY ❤️</h1>" +
+"<img src='https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif' width='250'>" +
+"<h2 style='color:white;'>Best Valentine Ever 😍<br>Mwah Mwahh Mwahhh Mwahhhhhhh 🥰🥰🥰🥰🥰</h2>" +
+"<div style='font-size:60px'>🎉🎉🎉🎉🎉</div>"
 
-let x=Math.random()*window.innerWidth;
-let y=Math.random()*window.innerHeight;
-
-button.style.left=x+"px";
-button.style.top=y+"px";
-
-button.innerText=messages[msgIndex % messages.length];
-msgIndex++;
+for(let i=0;i<200;i++){
+createHeart()
 }
 
-function yesClicked(){
+}
 
-document.body.innerHTML=`
-<h1>YAYYYY!!! ❤️🥰</h1>
-<img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-<h2>You just made my day 💖
-<br>Mwah Mwahh Mwahhh Mwahhhhhhh 🥰🥰🥰🥰🥰</h2>
-<div style="font-size:50px;">🎉🎉🎉🎉🎉</div>
-`;
+document.getElementById("no").onclick = function(){
+
+if(messageIndex < messages.length){
+document.getElementById("question").innerText = messages[messageIndex]
+messageIndex++
+}
+
+yesSize += 0.3
+noSize -= 0.1
+
+document.getElementById("yes").style.transform = "scale("+yesSize+")"
+document.getElementById("no").style.transform = "scale("+noSize+")"
+
+moveNo()
+
+}
+
+function moveNo(){
+
+let x = Math.random() * (window.innerWidth - 100)
+let y = Math.random() * (window.innerHeight - 100)
+
+let btn = document.getElementById("no")
+
+btn.style.left = x + "px"
+btn.style.top = y + "px"
+
 }
 
 function createHeart(){
 
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💖";
+let heart = document.createElement("div")
 
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=Math.random()*30+10+"px";
+heart.className="heart"
+heart.innerHTML="💖"
 
-document.body.appendChild(heart);
+heart.style.left = Math.random()*100+"vw"
+heart.style.fontSize = (10 + Math.random()*30)+"px"
+heart.style.animationDuration = (3 + Math.random()*3)+"s"
+
+document.body.appendChild(heart)
 
 setTimeout(()=>{
-heart.remove();
+heart.remove()
 },6000)
 
 }
 
-setInterval(createHeart,300);
+setInterval(createHeart,300)
 
 </script>
 
